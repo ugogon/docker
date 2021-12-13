@@ -75,7 +75,7 @@ services:
       - SMTP_DEFAULT_FROM
       - HOST_PROTOCOL
       - HOST_DOMAIN
-
+      - DEVISE_SECRET_KEY=<REPLACE ME WITH RANDOM KEY>
   mysql:
     container_name: mysql
     image: mysql/mysql-server:latest
