@@ -1,4 +1,4 @@
-all: setup-autolab-configs setup-tango-configs
+all: setup-autolab-configs setup-tango-configs setup-docker-configs
 
 .PHONY: setup-autolab-configs
 setup-autolab-configs:
@@ -7,13 +7,6 @@ setup-autolab-configs:
 
 	@echo "Creating default Autolab/config/school.yml"
 	cp -n ./Autolab/config/school.yml.template ./Autolab/config/school.yml
-
-	# @echo "Creating default Autolab/config/initializers/devise.rb"
-	# cp -n ./Autolab/config/initializers/devise.rb.template ./Autolab/config/initializers/devise.rb
-
-	# Replace the Devise secret key with a random string
-	# @echo "Setting random Devise secret"
-	# sed -i.bak "s/<YOUR-SECRET-KEY>/`LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 128`/g" ./Autolab/config/initializers/devise.rb && rm ./Autolab/config/initializers/devise.rb.bak
 
 	@echo "Creating default Autolab/config/environments/production.rb"
 	cp -n ./Autolab/config/environments/production.rb.template ./Autolab/config/environments/production.rb
@@ -31,6 +24,15 @@ setup-autolab-configs:
 setup-tango-configs:
 	echo "Creating default Tango/config.py"
 	cp -n ./Tango/config.template.py ./Tango/config.py
+
+.PHONY: setup-docker-configs
+setup-docker-configs:
+	echo "Creating default ssl/init-letsencrypt.sh"
+	cp -n ./ssl/init-letsencrypt.sh.template ./ssl/init-letsencrypt.sh
+	echo "Creating default nginx/app.conf"
+	cp -n ./nginx/app.conf.template ./nginx/app.conf
+	echo "Creating default nginx/no-ssl-app.conf"
+	cp -n ./nginx/no-ssl-app.conf.template ./nginx/no-ssl-app.conf
 
 .PHONY: db-migrate
 db-migrate:
@@ -51,20 +53,18 @@ set-perms:
 create-user:
 	docker exec -it autolab bash /home/app/webapp/bin/initialize_user.sh
 
-.PHONY: ssl
-ssl:
-	cp -n ./ssl/init-letsencrypt.sh.template ./ssl/init-letsencrypt.sh
-
 
 .PHONY: clean
 clean:
+	echo "Deleting all Autolab, Tango, SSL, Nginx, Docker Compose deployment configs"
 	rm -rf ./Autolab/config/database.yml
 	rm -rf ./Autolab/config/school.yml
-	rm -rf ./Autolab/config/initializers/devise.rb
 	rm -rf ./Autolab/config/environments/production.rb
 	rm -rf ./Autolab/config/autogradeConfig.rb
 	rm -rf ./Tango/config.py
 	rm -rf ./ssl/init-letsencrypt.sh
+	rm -rf ./nginx/app.conf
+	rm -rf ./nginx/no-ssl-app.conf
 	rm -rf ./Autolab/log
 	rm -rf ./.env
 	# We don't remove Autolab/courses here, as it may contain important user data. Remove it yourself manually if needed.
