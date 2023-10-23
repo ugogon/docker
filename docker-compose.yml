@@ -39,6 +39,7 @@ services:
     # Some volume mappings may seem redundant, but we want to make it explicit
     volumes:
       - ./Autolab/db/:/home/app/webapp/db
+      - ./Autolab/app/:/home/app/webapp/app
       - ./Autolab/config/database.yml:/home/app/webapp/config/database.yml
       - ./Autolab/config/environments/production.rb:/home/app/webapp/config/environments/production.rb
       - ./Autolab/config/autogradeConfig.rb:/home/app/webapp/config/autogradeConfig.rb
@@ -49,8 +50,8 @@ services:
       - ./ssl/certbot/www:/var/www/certbot
 
       # Uncomment the below if you are using your own certificate
-      # - ./ssl/fullchain.pem:/etc/letsencrypt/live/test.autolab.io/fullchain.pem
-      # - ./ssl/privkey.pem:/etc/letsencrypt/live/test.autolab.io/privkey.pem
+      - ./ssl/fullchain.pem:/etc/letsencrypt/live/autolab.service.tu-berlin.de/fullchain.pem
+      - ./ssl/privkey.pem:/etc/letsencrypt/live/autolab.service.tu-berlin.de/privkey.pem
       # - ./ssl/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
 
       # Comment the below out to disable SSL (not recommended)
