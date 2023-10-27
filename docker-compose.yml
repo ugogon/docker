@@ -40,6 +40,7 @@ services:
     volumes:
       - ./Autolab/db/:/home/app/webapp/db
       - ./Autolab/app/:/home/app/webapp/app
+      - ./Autolab/public/custom:/home/app/webapp/public/custom
       - ./Autolab/config/database.yml:/home/app/webapp/config/database.yml
       - ./Autolab/config/environments/production.rb:/home/app/webapp/config/environments/production.rb
       - ./Autolab/config/autogradeConfig.rb:/home/app/webapp/config/autogradeConfig.rb
@@ -50,8 +51,8 @@ services:
       - ./ssl/certbot/www:/var/www/certbot
 
       # Uncomment the below if you are using your own certificate
-      - ./ssl/fullchain.pem:/etc/letsencrypt/live/autolab.service.tu-berlin.de/fullchain.pem
-      - ./ssl/privkey.pem:/etc/letsencrypt/live/autolab.service.tu-berlin.de/privkey.pem
+      - ./ssl/fullchain.pem:/etc/letsencrypt/live/autolab.cg.tu-berlin.de/fullchain.pem
+      - ./ssl/privkey.pem:/etc/letsencrypt/live/autolab.cg.tu-berlin.de/privkey.pem
       # - ./ssl/ssl-dhparams.pem:/etc/letsencrypt/ssl-dhparams.pem
 
       # Comment the below out to disable SSL (not recommended)
