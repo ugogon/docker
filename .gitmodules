@@ -1,6 +1,10 @@
 [submodule "Autolab"]
 	path = Autolab
 	url = git@github.com:ugogon/Autolab.git
+	branch = tu-berlin
+	update = merge
 [submodule "Tango"]
 	path = Tango
 	url = git@github.com:ugogon/Tango.git
+	branch = tu-berlin
+	update = merge
